@@ -1,6 +1,5 @@
 package com.yueyou.adreader.activity;
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,7 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.igexin.sdk.PushManager;
+
 import com.yueyou.adreader.R;
 import com.yueyou.adreader.activity.ViewPagerView.Adapter;
 import com.yueyou.adreader.activity.ViewPagerView.BookSelectedView;
@@ -22,8 +21,6 @@ import com.yueyou.adreader.activity.ViewPagerView.BookshelfView;
 import com.yueyou.adreader.activity.ViewPagerView.PersionalView;
 import com.yueyou.adreader.activity.base.BaseActivity;
 import com.yueyou.adreader.service.Action;
-import com.yueyou.adreader.service.YYGTIntentService;
-import com.yueyou.adreader.service.PushService;
 import com.yueyou.adreader.service.UpgradeEngine;
 import com.yueyou.adreader.service.Url;
 import com.yueyou.adreader.service.advertisement.adObject.AdNewUserPopWindow;
@@ -78,8 +75,6 @@ public class MainActivity extends BaseActivity {
 //        LogUtil.e("intentStr   " + intentStr);
 //      intent:#Intent;action=android.intent.acti61.50.130.242:20185/h5/act/signinon.oppopush;component=com.yueyou.adreader/.activity.MainActivity;S.t=tab;S.data=2;end
 //      intent:#Intent;action=android.intent.action.oppopush;component=com.yueyou.adreader/.activity.MainActivity;S.t=tab;S.data=4;end
-        com.igexin.sdk.PushManager.getInstance().initialize(getApplicationContext(), PushService.class);
-        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), YYGTIntentService.class);
         AdEngine.getInstance().setContext(this);
         mDeviceActivity = DataSHP.getSexType(this) == null;
         setContentView(R.layout.activity_main);

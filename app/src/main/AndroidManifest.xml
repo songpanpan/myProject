@@ -58,15 +58,7 @@
             android:name="com.baidu.mobads.AppActivity"
             android:configChanges="screenSize|keyboard|keyboardHidden|orientation"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <service
-            android:name=".service.YYGTIntentService"
-            android:permission="android.permission.BIND_JOB_SERVICE"/>
-        <service
-            android:name=".service.PushService"
-            android:exported="true"
-            android:label="PushService"
-            android:process=":pushservice">
-        </service>
+
         <!--&lt;!&ndash;升级&ndash;&gt;-->
         <!--<provider-->
         <!--android:name="com.yueyou.adreader.upgrade.FileProvider"-->
