@@ -12,17 +12,10 @@ import com.yueyou.adreader.R;
 import com.yueyou.adreader.activity.base.BaseActivity;
 import com.yueyou.adreader.service.Action;
 import com.yueyou.adreader.service.UpgradeEngine;
-import com.yueyou.adreader.service.advertisement.adObject.AdNewUserPopWindow;
-import com.yueyou.adreader.service.advertisement.adObject.AdStartPopWindow;
-import com.yueyou.adreader.service.advertisement.service.AdEngine;
 import com.yueyou.adreader.service.analytics.AnalyticsEngine;
-import com.yueyou.adreader.service.analytics.ThirdAnalytics;
-import com.yueyou.adreader.service.db.DBEngine;
 import com.yueyou.adreader.service.db.DataSHP;
 import com.yueyou.adreader.util.Utils;
 import com.yueyou.adreader.util.Widget;
-import com.yueyou.adreader.view.Event.UserEvent;
-import com.yueyou.adreader.view.MainPreView;
 import com.yueyou.adreader.view.ReSplashPreView;
 import com.yueyou.adreader.view.dlg.AlertWindow;
 import com.yueyou.adreader.view.dlg.MessageDlg;
@@ -88,7 +81,6 @@ public class ReSplashActivity extends BaseActivity {
                 if (mDeviceActivity) {
                     getBuildinBook();
                     AnalyticsEngine.activate(ReSplashActivity.this, mSiteId, mBookId, mBookName);
-                    loadAdNewUserPopWindow();
                     mDeviceActivity = false;
                 }
                 AnalyticsEngine.login(ReSplashActivity.this);
@@ -207,7 +199,6 @@ public class ReSplashActivity extends BaseActivity {
             return false;
         } else if (path.equals("/read")) {
             Utils.logNoTag("uri -->  %s", uri);
-            ThirdAnalytics.onEventStartFromWap(this, "8081");
             String text = uri.getQueryParameter("bookInfo");
             text = Widget.decodeClipText(text);
             if (Widget.isBlank(text))
@@ -243,8 +234,6 @@ public class ReSplashActivity extends BaseActivity {
         return false;
     }
 
-    private AdNewUserPopWindow mAdNewUserPopWindow = null;
-    private AdStartPopWindow mAdStartPopWindow = null;
     private AlertWindow.AlertWindowListener mAlertWindowListener = new AlertWindow.AlertWindowListener() {
         @Override
         public boolean canShow() {
@@ -267,26 +256,11 @@ public class ReSplashActivity extends BaseActivity {
         }
     };
 
-    private void loadAdNewUserPopWindow() {
-        if (mAdNewUserPopWindow == null) {
-            mAdNewUserPopWindow = new AdNewUserPopWindow(this, mAlertWindowListener);
-        }
-        mAdNewUserPopWindow.load();
-    }
-
-    private void loadAdStartPopWindow() {
-        if (mAdStartPopWindow == null) {
-            mAdStartPopWindow = new AdStartPopWindow(this, mAlertWindowListener);
-        }
-        mAdStartPopWindow.load();
-    }
-
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (!mLoadAd && hasFocus) {
             if (!mDeviceActivity) {
-                loadAdStartPopWindow();
             }
             mLoadAd = true;
         }

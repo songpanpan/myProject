@@ -15,7 +15,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.ViewGroup;
 import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
@@ -28,8 +27,6 @@ import android.widget.LinearLayout;
 import com.yueyou.adreader.R;
 import com.yueyou.adreader.activity.refreshload.RefreshLoadLayout;
 import com.yueyou.adreader.service.Url;
-import com.yueyou.adreader.service.advertisement.adObject.AdWebViewBanner;
-import com.yueyou.adreader.service.analytics.ThirdAnalytics;
 import com.yueyou.adreader.service.db.DataSHP;
 import com.yueyou.adreader.service.model.UserInfoWithRedirectUrl;
 import com.yueyou.adreader.util.LogUtil;
@@ -49,7 +46,6 @@ public class CustomWebView extends WebView implements NestedScrollingChild {
     private JavascriptAction mJavascriptAction;
     private UrlInterceptInterface mUrlInterceptInterface;
     private View mAdView;
-    private AdWebViewBanner mAdWebViewBanner;
     private boolean mDragEvent;
     private float mDownTouchX;
     private float mDownTouchY;
@@ -248,34 +244,9 @@ public class CustomWebView extends WebView implements NestedScrollingChild {
     }
 
     public void pause() {
-        if (mAdView != null)
-            mAdWebViewBanner.release();
     }
 
     public void resume() {
-        if (mAdView != null)
-            mAdWebViewBanner.resume();
-    }
-
-    public void loadAd(int x, int y, int width, int height, int topBounds, int bottomBounds) {
-        ((Activity) getContext()).runOnUiThread(() -> {
-            if (mAdView == null) {
-                mAdView = ((Activity) getContext()).getLayoutInflater().inflate(R.layout.ad_webview_banner_container, null);
-                this.addView(mAdView, new LayoutParams(Widget.dip2px(getContext(), width), Widget.dip2px(getContext(), height),
-                        Widget.dip2px(getContext(), x), Widget.dip2px(getContext(), y)));
-                mAdWebViewBanner = new AdWebViewBanner();
-                mAdWebViewBanner.init((ViewGroup) mAdView, width, height);
-                mAdWebViewBanner.load();
-                mTopBounds = Widget.dip2px(getContext(), topBounds);
-                mBottomBounds = Widget.dip2px(getContext(), bottomBounds);
-                mAdViewHeight = Widget.dip2px(getContext(), height);
-            } else {
-                mAdView.setY(Widget.dip2px(getContext(), y));
-                mAdView.setX(Widget.dip2px(getContext(), x));
-                resetAdViewHeight();
-            }
-        });
-
     }
 
     public void refreshAdOffset(int x, int y) {
@@ -410,7 +381,6 @@ public class CustomWebView extends WebView implements NestedScrollingChild {
         this.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                ThirdAnalytics.setJavascriptMonitor(view);
                 mCustomWebViewListener.onWebViewProgressChanged(newProgress);
             }
         });
@@ -520,7 +490,6 @@ public class CustomWebView extends WebView implements NestedScrollingChild {
         this.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                ThirdAnalytics.setJavascriptMonitor(view);
                 mCustomWebViewListener.onWebViewProgressChanged(newProgress);
             }
         });

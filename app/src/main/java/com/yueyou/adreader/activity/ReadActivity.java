@@ -16,8 +16,6 @@ import android.view.WindowManager;
 import com.yueyou.adreader.R;
 import com.yueyou.adreader.service.Action;
 import com.yueyou.adreader.service.Url;
-import com.yueyou.adreader.service.advertisement.adObject.AdReadPageBanner;
-import com.yueyou.adreader.service.advertisement.service.AdEngine;
 import com.yueyou.adreader.service.model.BookShelfItem;
 import com.yueyou.adreader.util.LogUtil;
 import com.yueyou.adreader.util.NavigationBarTools;
@@ -41,7 +39,6 @@ public class ReadActivity extends com.yueyou.adreader.activity.base.BaseActivity
     private ReadView mReadView;
     //是否内置书
     private boolean mIsTmpBook;
-    private AdReadPageBanner mAdBanner;
     private int mNavigationBarColor;
 
 
@@ -73,33 +70,13 @@ public class ReadActivity extends com.yueyou.adreader.activity.base.BaseActivity
             return;
         }
         Log.i("blank screen", "blank screen ReadActivity00000: " + bookId);
-        mAdBanner = new AdReadPageBanner();
-        mAdBanner.init((ViewGroup) getWindow().getDecorView(), new AdReadPageBanner.AdReadPageBannerListener() {
-            @Override
-            public int AdBookId() {
-                return mBook.getBookId();
-            }
-
-            @Override
-            public int AdChapterId() {
-                return mBook.getChapterIndex();
-            }
-
-            @Override
-            public boolean isVipChapter() {
-                return mReadView.isVipChapter();
-            }
-        });
         mReadMenu = findViewById(R.id.read_menu);
         mReadView = findViewById(R.id.read_view);
         mReadMenu.setVisibility(View.GONE);
         new Thread(() -> Action.getInstance().getCtlContent(this)).start();
-        AdEngine.getInstance().resetReadPageScreenAdList();
-        AdEngine.getInstance().resetReadPageBannerAdList();
         mReadView.post(() -> {
             mReadMenu.initSetting();
             mReadView.openBook(mBook);
-            mAdBanner.load();
         });
     }
 
@@ -111,7 +88,6 @@ public class ReadActivity extends com.yueyou.adreader.activity.base.BaseActivity
         }
         try {
             mReadView.resume();
-            mAdBanner.resume();
         } catch (Exception e) {
             Utils.logNoTag("onResume error %s", e.getMessage());
         }
@@ -120,15 +96,12 @@ public class ReadActivity extends com.yueyou.adreader.activity.base.BaseActivity
     @Override
     public void onPause() {
         super.onPause();
-        mAdBanner.pause();
         mReadView.pause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mAdBanner != null)
-            mAdBanner.release();
         Utils.logNoTag("onDestroy");
     }
 
@@ -257,7 +230,6 @@ public class ReadActivity extends com.yueyou.adreader.activity.base.BaseActivity
 
     @Override
     public void refreshChapter(boolean isVipChapter) {
-        mAdBanner.refreshChapterVip(isVipChapter);
     }
 
     @Override
@@ -331,7 +303,6 @@ public class ReadActivity extends com.yueyou.adreader.activity.base.BaseActivity
             findViewById(R.id.banner_mask).setVisibility(View.GONE);
             setNavigationBarColor(mNavigationBarColor);
         }
-        mAdBanner.setColor(barBgColor, textColor, textColor, mReadMenu.isNight(), parchment);
     }
 
     private void getNavigationBarColor() {

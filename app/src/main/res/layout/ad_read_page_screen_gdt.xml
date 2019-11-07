@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.qq.e.ads.nativ.widget.NativeAdContainer xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/native_ad_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
-    <include layout="@layout/ad_read_page_screen_mix" />
-</com.qq.e.ads.nativ.widget.NativeAdContainer>

@@ -17,8 +17,6 @@ import com.yueyou.adreader.activity.YueYouApplication;
 import com.yueyou.adreader.service.Action;
 import com.yueyou.adreader.service.RechargeAndBuyListener;
 import com.yueyou.adreader.service.Url;
-import com.yueyou.adreader.service.advertisement.adObject.AdSignRewardVideo;
-import com.yueyou.adreader.service.analytics.ThirdAnalytics;
 import com.yueyou.adreader.service.db.DataSHP;
 import com.yueyou.adreader.service.model.BookInfo;
 import com.yueyou.adreader.service.model.BookShelfItem;
@@ -135,7 +133,6 @@ public class JavascriptAction {
     @JavascriptInterface
     public void goSearchPage(String title) {
         ((Activity) mCustomWebView.getContext()).runOnUiThread(() -> {
-            ThirdAnalytics.onEventPageViewSearch(mCustomWebView.getContext(), title);
             Widget.startActivity((Activity) mCustomWebView.getContext(), SearchActivity.class);
         });
     }
@@ -220,10 +217,6 @@ public class JavascriptAction {
         mCustomWebView.getContext().startActivity(intent);
     }
 
-    @JavascriptInterface
-    public void loadAd(int x, int y, int width, int height, int topBounds, int bottomBounds) {
-        mCustomWebView.loadAd(x, y, width, height, topBounds, bottomBounds);
-    }
 
     @JavascriptInterface
     public void refreshAdOffset(int x, int y) {
@@ -249,18 +242,6 @@ public class JavascriptAction {
         });
     }
 
-    @JavascriptInterface
-    public void openSignRewardVideo(String extra, String callBack) {
-        this.callBack = callBack;
-        ((Activity) mCustomWebView.getContext()).runOnUiThread(() -> {
-            try {
-                AdSignRewardVideo adSignRewardVideo = new AdSignRewardVideo();
-                adSignRewardVideo.show(extra);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
 
     @JavascriptInterface
     public String getBookshelfContainerSize() {

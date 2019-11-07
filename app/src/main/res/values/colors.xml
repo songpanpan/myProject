@@ -11,4 +11,5 @@
     <color name="colorText">#FF344D36</color>
     <color name="parchmentColor">#FFE1D3C2</color>
     <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
 </resources>

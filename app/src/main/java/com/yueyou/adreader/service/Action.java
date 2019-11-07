@@ -5,10 +5,8 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
-import com.qq.e.comm.util.StringUtil;
 import com.yueyou.adreader.activity.YueYouApplication;
 import com.yueyou.adreader.service.analytics.AnalyticsEngine;
-import com.yueyou.adreader.service.analytics.ThirdAnalytics;
 import com.yueyou.adreader.service.db.BookFileEngine;
 import com.yueyou.adreader.service.db.DataSHP;
 import com.yueyou.adreader.service.model.AdContent;
@@ -180,10 +178,7 @@ public class Action {
         String count = "0";
         String ts = "";
         String savedChaterInfo = DataSHP.getChapterCount(context, bookId);
-        if (!StringUtil.isEmpty(savedChaterInfo)) {
-            count = savedChaterInfo.split("_")[0];
-            ts = savedChaterInfo.split("_")[1];
-        }
+
         HashMap<String, String> params = new HashMap<>();
         params.put("bookId", bookId + "");
         params.put("chapterCount", count);
@@ -316,7 +311,6 @@ public class Action {
                 flag = true;
             }
         } catch (Exception e) {
-            ThirdAnalytics.reportError(context, "getBookCover error : %s", e.getMessage(), e);
         }
         return flag;
     }

@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.yueyou.adreader.BuildConfig;
 import com.yueyou.adreader.activity.base.BaseActivity;
-import com.yueyou.adreader.service.analytics.ThirdAnalytics;
 import com.yueyou.adreader.view.dlg.ProgressDlg;
 
 import java.io.File;
@@ -73,7 +72,6 @@ public class HttpEngine {
                     .build();
             return executeSync(ctx, request, showProgress);
         } catch (Exception e) {
-            ThirdAnalytics.reportError(ctx, "error url -> %s , \nreason: %s", url, e.getMessage());
         }
         return null;
     }
@@ -85,7 +83,6 @@ public class HttpEngine {
                     .build();
             return executeSync(ctx, request, showProgress);
         } catch (Exception e) {
-            ThirdAnalytics.reportError(ctx, "error url -> %s , \nreason: %s", url, e.getMessage());
             return null;
         }
     }
@@ -97,7 +94,6 @@ public class HttpEngine {
                     .build();
             return executeImgSync(ctx, request, showProgress);
         } catch (Exception e) {
-            ThirdAnalytics.reportError(ctx, "error url -> %s , \nreason: %s", url, e.getMessage());
             return null;
         }
     }
@@ -110,8 +106,6 @@ public class HttpEngine {
         try {
             Response response = call.execute();
             if (!response.isSuccessful()) {
-                ThirdAnalytics.onEventErrorApi(ctx, request.url(), 1, response.message());
-                ThirdAnalytics.reportError(ctx, "error: url -> %s \nerror %s", request.url(), response.message());
                 return null;
             }
 //            String contentType = response.header("Content-Type");
@@ -126,7 +120,6 @@ public class HttpEngine {
 //            }
             return response.body().bytes();
         } catch (IOException e) {
-            ThirdAnalytics.onEventErrorApi(ctx, request.url(), 1, e.getMessage());
             return null;
         } finally {
             if (showProgress) {
@@ -143,8 +136,6 @@ public class HttpEngine {
         try {
             Response response = call.execute();
             if (!response.isSuccessful()) {
-                ThirdAnalytics.onEventErrorApi(ctx, request.url(), 1, response.message());
-                ThirdAnalytics.reportError(ctx, "error: url -> %s \nerror %s", request.url(), response.message());
                 return null;
             }
             String contentType = response.header("Content-Type");
@@ -159,7 +150,6 @@ public class HttpEngine {
             }
             return response.body().bytes();
         } catch (IOException e) {
-            ThirdAnalytics.onEventErrorApi(ctx, request.url(), 1, e.getMessage());
             return null;
         } finally {
             if (showProgress) {
@@ -189,7 +179,6 @@ public class HttpEngine {
                 execute(ctx, request, userData);
             }
         } catch (Exception e) {
-            ThirdAnalytics.reportError(ctx, e);
         }
     }
 
@@ -199,8 +188,6 @@ public class HttpEngine {
             @Override
             public void onFailure(Call var1, IOException var2) {
                 mHttpEngineListener.onResult(ctx, false, null, userData, false);
-                ThirdAnalytics.reportError(ctx, "error url -> %s \n result -> %s ", request.url().toString(), "onFailure -> " + var2.getMessage());
-                ThirdAnalytics.onEventErrorApi(ctx, request.url(), 1, var2.getMessage());
             }
 
             @Override
@@ -217,13 +204,9 @@ public class HttpEngine {
                         }
                     } else {
                         mHttpEngineListener.onResult(ctx, false, null, userData, false);
-                        ThirdAnalytics.reportError(ctx, "error url -> %s \nrequest %s \nhttpCode -> %d \nresult -> %s ", url, var1.request().toString(), var2.code(), var2.message());
-                        ThirdAnalytics.onEventErrorApi(ctx, request.url(), 1, var2.message());
                     }
                 } catch (Exception e) {
                     mHttpEngineListener.onResult(ctx, false, null, userData, false);
-                    ThirdAnalytics.reportError(ctx, "error url -> %s \n result -> %s ", request.url().toString(), "onResponse -> " + e.getMessage());
-                    ThirdAnalytics.onEventErrorApi(ctx, request.url(), 1, var2.message());
                 }
             }
         });
@@ -242,8 +225,6 @@ public class HttpEngine {
                     progressDlg.dismiss();
                 }
                 mHttpEngineListener.onResult(ctx, false, null, userData, showProgress);
-                ThirdAnalytics.reportError(ctx, "error url -> %s \n result -> %s ", request.url().toString(), "onFailure -> " + var2.getMessage());
-                ThirdAnalytics.onEventErrorApi(ctx, request.url(), 1, var2.getMessage());
             }
 
             @Override
@@ -263,13 +244,9 @@ public class HttpEngine {
                         }
                     } else {
                         mHttpEngineListener.onResult(ctx, false, null, userData, showProgress);
-                        ThirdAnalytics.reportError(ctx, "error url -> %s \nrequest %s \nhttpCode -> %d \nresult -> %s ", url, var1.request().toString(), var2.code(), var2.message());
-                        ThirdAnalytics.onEventErrorApi(ctx, request.url(), 1, var2.message());
                     }
                 } catch (Exception e) {
                     mHttpEngineListener.onResult(ctx, false, null, userData, showProgress);
-                    ThirdAnalytics.reportError(ctx, "error url -> %s \n result -> %s ", request.url().toString(), "onResponse -> " + e.getMessage());
-                    ThirdAnalytics.onEventErrorApi(ctx, request.url(), 1, var2.message());
                 }
             }
         });
@@ -301,8 +278,6 @@ public class HttpEngine {
                 }
                 if (httpEngineListener != null)
                     httpEngineListener.onResult(null, false, null, null, showProgress);
-                ThirdAnalytics.reportError(ctx, "error url -> %s \n result -> %s ", request.url().toString(), "onFailure -> " + var2.getMessage());
-                ThirdAnalytics.onEventErrorApi(ctx, request.url(), 1, var2.getMessage());
             }
 
             @Override
@@ -324,14 +299,10 @@ public class HttpEngine {
                     } else {
                         if (httpEngineListener != null)
                             httpEngineListener.onResult(null, false, null, null, showProgress);
-                        ThirdAnalytics.reportError(ctx, "error url -> %s \nrequest %s \nhttpCode -> %d \nresult -> %s ", url, var1.request().toString(), var2.code(), var2.message());
-                        ThirdAnalytics.onEventErrorApi(ctx, request.url(), 1, var2.message());
                     }
                 } catch (Exception e) {
                     if (httpEngineListener != null)
                         httpEngineListener.onResult(null, false, e.getMessage(), null, showProgress);
-                    ThirdAnalytics.reportError(ctx, "error url -> %s \nrequest %s \nhttpCode -> %d \nresult -> %s ", url, var1.request().toString(), var2.code(), e.getMessage());
-                    ThirdAnalytics.onEventErrorApi(ctx, request.url(), 1, var2.message());
                 }
             }
         });

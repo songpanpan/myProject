@@ -99,10 +99,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone">
-            <include layout="@layout/ad_read_page_screen_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
             <View
                 android:id="@+id/screen_mask"
                 android:layout_width="match_parent"

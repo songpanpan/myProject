@@ -5,20 +5,6 @@
     android:background="#ffffff"
     android:orientation="vertical"
     xmlns:attr="http://schemas.android.com/apk/res-auto">
-    <com.linc.foldingmenu.FoldingLayout
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="135dp"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginBottom="0dp"
-        android:elevation="5dp"
-        android:background="#00ffffff"
-        >
-        <include layout="@layout/ad_bookshelf_banner_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-    </com.linc.foldingmenu.FoldingLayout>
     <com.yueyou.adreader.view.HeaderGridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"

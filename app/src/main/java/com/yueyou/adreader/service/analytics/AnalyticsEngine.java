@@ -16,7 +16,6 @@ public class AnalyticsEngine {
 
     public static void activate(Context context, String siteId, String bookId, String bookName) {
         Bi.activate(context, siteId, bookId, bookName);
-        ThirdAnalytics.onEventActivate(context, siteId, bookId, bookName);
     }
 
     public static void login(Context context) {
@@ -24,7 +23,6 @@ public class AnalyticsEngine {
         if (userId == null)
             return;
         Bi.login(context, userId);
-        ThirdAnalytics.onEventLogin(context, userId, "");
     }
 
     public static void addBuildinBookFinish(Context context, boolean result, String msg) {
@@ -32,7 +30,6 @@ public class AnalyticsEngine {
         Map<String, String> map = new HashMap<>();
         map.put("result", result ? "fail" : "success");
         map.put("msg", msg);
-        ThirdAnalytics.onEvent(context, ThirdAnalytics.EventId.EVENT_READ_BUILD_BOOK, map);
     }
 
     public static void refreshVaild(Context context) {
@@ -40,7 +37,6 @@ public class AnalyticsEngine {
         if (userId == null)
             return;
         Bi.vaild(context, userId);
-        ThirdAnalytics.onEventRefreshVaild(context,userId,"");
     }
 
     public static void read(Context context, int bookId, String bookName, int chapterId, boolean isLastChapter,int words) {
@@ -48,13 +44,11 @@ public class AnalyticsEngine {
         if (userId == null)
             return;
         Bi.read(context, userId, bookId, bookName, chapterId, isLastChapter,words);
-        ThirdAnalytics.onEventRead(context, bookId, bookName, isLastChapter);
     }
 
     public static void advertisement(Context context, int siteId, String cp, boolean clicked) {
         Utils.logNoTag("advertisement siteId -> %d ,clicked -> %b cp -> %s", siteId, clicked, cp);
         Bi.advertisement(context, siteId, cp, clicked);
-        ThirdAnalytics.onEventAdvertisement(context, siteId, cp, clicked);
     }
 
     public static void advertisementEnd(Context context, int siteId, String cp, HttpEngine.HttpEngineListener listener) {

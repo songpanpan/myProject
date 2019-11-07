@@ -3,9 +3,7 @@ package com.yueyou.adreader.service;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.qq.e.comm.util.StringUtil;
 import com.yueyou.adreader.service.Action.ActionType;
-import com.yueyou.adreader.service.analytics.ThirdAnalytics;
 import com.yueyou.adreader.service.db.DataSHP;
 import com.yueyou.adreader.service.model.Response;
 import com.yueyou.adreader.service.model.ResponseCode;
@@ -57,7 +55,6 @@ public class Request {
             }
             return response;
         } catch (Exception e) {
-            ThirdAnalytics.reportError(context, "url ->%s ,error ", url, e.getMessage());
         }
         return new Response();
     }
@@ -78,10 +75,6 @@ public class Request {
     }
 
     public Response start(Context context, Map<String, String> params, String url, List<String> imgList, RequestListener requestListener, boolean showProgress) {
-        if (StringUtil.isEmpty(url)) {
-            Utils.logError("error url -->" + url);
-            return new Response();
-        }
         url = Url.signUrl(context, url);
         return exec(context, params, url, imgList, requestListener, showProgress);
     }

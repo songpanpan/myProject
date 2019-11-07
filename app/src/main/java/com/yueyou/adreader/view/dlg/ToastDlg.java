@@ -9,7 +9,6 @@ import android.os.Message;
 import android.widget.TextView;
 
 import com.yueyou.adreader.R;
-import com.yueyou.adreader.service.analytics.ThirdAnalytics;
 
 
 /**
@@ -21,7 +20,6 @@ public class ToastDlg extends Dialog {
         try {
             show(context, toast, null);
         } catch (Exception e) {
-            ThirdAnalytics.reportError(context, e);
         }
     }
 

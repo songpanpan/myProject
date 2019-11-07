@@ -23,11 +23,7 @@ import com.yueyou.adreader.activity.base.BaseActivity;
 import com.yueyou.adreader.service.Action;
 import com.yueyou.adreader.service.UpgradeEngine;
 import com.yueyou.adreader.service.Url;
-import com.yueyou.adreader.service.advertisement.adObject.AdNewUserPopWindow;
-import com.yueyou.adreader.service.advertisement.adObject.AdStartPopWindow;
-import com.yueyou.adreader.service.advertisement.service.AdEngine;
 import com.yueyou.adreader.service.analytics.AnalyticsEngine;
-import com.yueyou.adreader.service.analytics.ThirdAnalytics;
 import com.yueyou.adreader.service.db.DBEngine;
 import com.yueyou.adreader.service.db.DataSHP;
 import com.yueyou.adreader.service.model.RedSpotBean;
@@ -74,7 +70,7 @@ public class MainActivity extends BaseActivity {
 //        LogUtil.e("intentStr   " + intentStr);
 //      intent:#Intent;action=android.intent.acti61.50.130.242:20185/h5/act/signinon.oppopush;component=com.yueyou.adreader/.activity.MainActivity;S.t=tab;S.data=2;end
 //      intent:#Intent;action=android.intent.action.oppopush;component=com.yueyou.adreader/.activity.MainActivity;S.t=tab;S.data=4;end
-        AdEngine.getInstance().setContext(this);
+
         mDeviceActivity = DataSHP.getSexType(this) == null;
         setContentView(R.layout.activity_main);
         initTop("", 0, R.drawable.search);
@@ -201,7 +197,6 @@ public class MainActivity extends BaseActivity {
                     getBuildinBook();
                     AnalyticsEngine.activate(MainActivity.this, mSiteId, mBookId, mBookName);
                     initViewPager(false, 0);
-                    loadAdNewUserPopWindow();
                     mDeviceActivity = false;
                 }
                 AnalyticsEngine.login(MainActivity.this);
@@ -306,7 +301,6 @@ public class MainActivity extends BaseActivity {
         if (AlertWindow.mAlertWindow != null) {
             AlertWindow.mAlertWindow.closeView();
         }
-        AdEngine.getInstance().release();
         super.onDestroy();
         UserEvent.getInstance().release();
         Utils.logNoTag("onDestroy");
@@ -341,7 +335,6 @@ public class MainActivity extends BaseActivity {
             return false;
         } else if (path.equals("/read")) {
             Utils.logNoTag("uri -->  %s", uri);
-            ThirdAnalytics.onEventStartFromWap(this, "8081");
             String text = uri.getQueryParameter("bookInfo");
             text = Widget.decodeClipText(text);
             if (Widget.isBlank(text))
@@ -398,7 +391,6 @@ public class MainActivity extends BaseActivity {
         mAdapter.setActivity();
         mViewPager.setCurrentItem(currentItem);
         SetMenuTabChecked(currentItem);
-        ThirdAnalytics.onEventTabClick(this, ThirdAnalytics.EventId.EVENT_CLICK_BOOKSHELF);
         mViewPager.addOnPageChangeListener((ViewPager.OnPageChangeListener) new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrollStateChanged(int arg0) {
@@ -424,26 +416,21 @@ public class MainActivity extends BaseActivity {
                 mTopBar.findViewById(R.id.icon_bookshelf).setVisibility(View.VISIBLE);
                 mTopBar.findViewById(R.id.iv_top_sign).setVisibility(View.VISIBLE);
                 //mTopBar.setTitle(Widget.getAppName(this));
-                ThirdAnalytics.onEventTabClick(this, ThirdAnalytics.EventId.EVENT_CLICK_BOOKSHELF);
                 break;
             case 1:
                 mTopBar.setVisibility(View.GONE);
-                ThirdAnalytics.onEventTabClick(this, ThirdAnalytics.EventId.EVENT_CLICK_BOOKSTORE);
                 break;
             case 2:
                 mTopBar.setVisibility(View.GONE);
-                ThirdAnalytics.onEventTabClick(this, ThirdAnalytics.EventId.EVENT_CLICK_SELECT);
                 break;
             case 3:
                 mTopBar.setVisibility(View.GONE);
                 mTopBar.setRightButtonImageId(0);
-                ThirdAnalytics.onEventTabClick(this, ThirdAnalytics.EventId.EVENT_CLICK_PERSIONAL);
                 break;
         }
     }
 
-    private AdNewUserPopWindow mAdNewUserPopWindow = null;
-    private AdStartPopWindow mAdStartPopWindow = null;
+
     private AlertWindow.AlertWindowListener mAlertWindowListener = new AlertWindow.AlertWindowListener() {
         @Override
         public boolean canShow() {
@@ -462,26 +449,12 @@ public class MainActivity extends BaseActivity {
         }
     };
 
-    private void loadAdNewUserPopWindow() {
-        if (mAdNewUserPopWindow == null) {
-            mAdNewUserPopWindow = new AdNewUserPopWindow(this, mAlertWindowListener);
-        }
-        mAdNewUserPopWindow.load();
-    }
-
-    private void loadAdStartPopWindow() {
-        if (mAdStartPopWindow == null) {
-            mAdStartPopWindow = new AdStartPopWindow(this, mAlertWindowListener);
-        }
-        mAdStartPopWindow.load();
-    }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (!mLoadAd && hasFocus) {
             if (!mDeviceActivity) {
-                loadAdStartPopWindow();
             }
             mLoadAd = true;
         }
@@ -497,12 +470,10 @@ public class MainActivity extends BaseActivity {
             mTopBar.setTitle(getResources().getString(R.string.main_tab_title_book_select));
             mViewPager.setCurrentItem(2);
             SetMenuTabChecked(2);
-            ThirdAnalytics.onEventTabClick(this, ThirdAnalytics.EventId.EVENT_CLICK_SELECT);
         } else if (v.getId() == R.id.tool_bar_book_store) {
             mTopBar.setTitle(getResources().getString(R.string.main_tab_title_book_store));
             mViewPager.setCurrentItem(1);
             SetMenuTabChecked(1);
-            ThirdAnalytics.onEventTabClick(this, ThirdAnalytics.EventId.EVENT_CLICK_BOOKSTORE);
         } else if (v.getId() == R.id.tool_bar_bookshelf) {
             mTopBar.setVisibility(View.VISIBLE);
             mTopBar.setTitle("");
@@ -510,14 +481,12 @@ public class MainActivity extends BaseActivity {
             mTopBar.findViewById(R.id.iv_top_sign).setVisibility(View.VISIBLE);
             //mTopBar.setTitle(Widget.getAppName(this));
             SetMenuTabChecked(0);
-            ThirdAnalytics.onEventTabClick(this, ThirdAnalytics.EventId.EVENT_CLICK_BOOKSHELF);
             mViewPager.setCurrentItem(0);
         } else if (v.getId() == R.id.tool_bar_persional) {
             mTopBar.setTitle(getResources().getString(R.string.main_tab_title_book_persional));
             mViewPager.setCurrentItem(3);
             SetMenuTabChecked(3);
             mTopBar.setRightButtonImageId(0);
-            ThirdAnalytics.onEventTabClick(this, ThirdAnalytics.EventId.EVENT_CLICK_PERSIONAL);
         }
     }
 
@@ -550,7 +519,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onClickTopBarRight(View v) {
         Widget.startActivity(this, SearchActivity.class);
-        ThirdAnalytics.onEventPageViewSearch(this, mViewPager.getCurrentItem() + "");
     }
 
     @Override

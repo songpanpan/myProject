@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yueyou.adreader.R;
-import com.yueyou.adreader.service.analytics.ThirdAnalytics;
 import com.yueyou.adreader.view.webview.CustomWebView;
 import com.yueyou.adreader.view.webview.PullToRefreshWebView;
 
@@ -47,13 +46,11 @@ public class WebViewFrament extends Fragment implements CustomWebView.CustomWebV
     @Override
     public void onResume() {
         super.onResume();
-        ThirdAnalytics.onPageStart(mPageName);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        ThirdAnalytics.onPageEnd(mPageName);
     }
 
     @Override

@@ -15,8 +15,6 @@ import android.widget.TextView;
 import com.yueyou.adreader.R;
 import com.yueyou.adreader.service.Action;
 import com.yueyou.adreader.service.PermissionManager;
-import com.yueyou.adreader.service.advertisement.adObject.AdResume;
-import com.yueyou.adreader.service.advertisement.adObject.AdSplash;
 import com.yueyou.adreader.service.db.DataSHP;
 import com.yueyou.adreader.service.model.AdContent;
 import com.yueyou.adreader.util.Widget;
@@ -50,7 +48,6 @@ public class ReSplashPreView extends RelativeLayout {
         if (getVisibility() == GONE)
             return;
         setVisibility(GONE);
-        mAdResume.release();
         DataSHP.saveSexType(getContext(), "boy");
         if (mMainPreViewListener != null)
             mMainPreViewListener.finish(resume);
@@ -65,7 +62,6 @@ public class ReSplashPreView extends RelativeLayout {
         Log.i("blank screen", "blank screen MainPreView: " + this);
         ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.main_pre_view, (ViewGroup)this);
         mAdView = findViewById(R.id.ad_container);
-        mAdResume.init(mAdView);
         mSkipView = findViewById(R.id.skip_view);
         if (Build.VERSION.SDK_INT >= 23
                 && !PermissionManager.checkAndRequestPermission((Activity) context)) {
@@ -77,12 +73,10 @@ public class ReSplashPreView extends RelativeLayout {
     public void resumeShow() {
         resume = true;
         setVisibility(VISIBLE);
-        mAdResume.load(mAdView);
         Widget.sendEmptyMessageDelayed(mHandler, MSG_FINISH, 3000);
     }
 
     private void next() {
-        mAdResume.load(mAdView);
         Action.getInstance().login(getContext(), (object)->{
             if (mMainPreViewListener != null)
                 mMainPreViewListener.loginFinish();
@@ -120,23 +114,4 @@ public class ReSplashPreView extends RelativeLayout {
         }
     }
 
-    private AdSplash.AdSplashListener mAdEventObjectListener = new AdSplash.AdSplashListener() {
-        @Override
-        public void showed(AdContent adContent) {
-            if (adContent.getTime() > 7)
-                Widget.sendEmptyMessageDelayed(mHandler, MSG_FINISH, 5000);
-            else
-                Widget.sendEmptyMessageDelayed(mHandler, MSG_FINISH, adContent.getTime() * 1000);
-        }
-        @Override
-        public void closed() {
-            finish();
-            //Widget.sendEmptyMessageDelayed(mHandler, MSG_FINISH, 1);
-        }
-        @Override
-        public void preShow() {
-            Widget.sendEmptyMessageDelayed(mHandler, MSG_FINISH, 3000);
-        }
-    };
-    private AdResume mAdResume = new AdResume(mAdEventObjectListener);
 }

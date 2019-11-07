@@ -25,15 +25,12 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.qq.e.comm.util.StringUtil;
 import com.yueyou.adreader.R;
 import com.yueyou.adreader.activity.ReadActivity;
 import com.yueyou.adreader.activity.WebViewActivity;
 import com.yueyou.adreader.service.Action;
 import com.yueyou.adreader.service.BookShelfEngine;
-import com.yueyou.adreader.service.advertisement.adObject.AdBookShelfIcon;
 import com.yueyou.adreader.service.analytics.AnalyticsEngine;
-import com.yueyou.adreader.service.analytics.ThirdAnalytics;
 import com.yueyou.adreader.service.db.BookFileEngine;
 import com.yueyou.adreader.service.db.DataSHP;
 import com.yueyou.adreader.service.model.BookInfo;
@@ -81,7 +78,6 @@ public class BookshelfFrament extends Fragment implements AdapterView.OnItemClic
         }
     }
 
-    private AdBookShelfIcon mAdbookShelfIcon = new AdBookShelfIcon();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -111,11 +107,9 @@ public class BookshelfFrament extends Fragment implements AdapterView.OnItemClic
                     Looper.prepare();
                     Action.getInstance().getShelfBookPull(getContext(), getBookIds());
                 } catch (Exception e) {
-                    ThirdAnalytics.reportError(getContext(), "getShelfBookPull error : %s", e.getMessage());
                 }
             }).start();
         }
-        mAdbookShelfIcon.load(mView.findViewById(R.id.ad_bottom_icon));
         mInited = true;
         return mView;
     }
@@ -218,7 +212,6 @@ public class BookshelfFrament extends Fragment implements AdapterView.OnItemClic
             });
         } catch (Exception e) {
             e.printStackTrace();
-            ThirdAnalytics.reportError(getContext(), e);
         }
     }
 
@@ -288,7 +281,6 @@ public class BookshelfFrament extends Fragment implements AdapterView.OnItemClic
     @Override
     public void onResume() {
         super.onResume();
-        ThirdAnalytics.onPageStart(mPageName);
         mBookShelf.resume();
         if (mBookShelfEngine == null) {
             Utils.logNoTag("BookshelfFrament::onResume mBookShelfEngine: " + mBookShelfEngine);
@@ -301,7 +293,6 @@ public class BookshelfFrament extends Fragment implements AdapterView.OnItemClic
     @Override
     public void onPause() {
         super.onPause();
-        ThirdAnalytics.onPageEnd(mPageName);
     }
 
     @Override
@@ -315,10 +306,6 @@ public class BookshelfFrament extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (StringUtil.isEmpty(DataSHP.getUserId(this.getContext()))) {
-            Toast.makeText(getContext(), "登录错误，请重新登录", Toast.LENGTH_SHORT).show();
-            return;
-        }
         if (mGrideView.getHeaderViewCount() > 0)
             position -= mGrideView.getHeaderViewCount() * 3;
         if (mEditMenu.getVisibility() == View.VISIBLE) {

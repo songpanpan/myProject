@@ -6,17 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
 
-import com.qq.e.ads.cfg.MultiProcessFlag;
-import com.tuia.ad.TuiaAdConfig;
 import com.yueyou.adreader.service.analytics.AnalyticsEngine;
-import com.yueyou.adreader.service.analytics.ThirdAnalytics;
-import com.yueyou.adreader.util.Const;
-import com.yueyou.adreader.util.LogUtil;
 
 import java.util.UUID;
 
@@ -38,9 +32,6 @@ public class YueYouApplication extends Application {
         statrtRefreshValid();
 //        McLogUtil.setENABLE_LOGCAT(false);
 //        TuiaAdConfig.init(this);
-        ThirdAnalytics.buylyInit(context);
-        ThirdAnalytics.umengInit(context);
-        MultiProcessFlag.setMultiProcess(true);
         AnalyticsEngine.engineInit(this);
     }
 
@@ -87,7 +78,6 @@ public class YueYouApplication extends Application {
                     intentData.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     getApplicationContext().startActivity(intentData);
                 } catch (Exception e) {
-                    ThirdAnalytics.reportError(getApplicationContext(), e);
                 }
             }
         }

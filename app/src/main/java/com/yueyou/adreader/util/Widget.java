@@ -31,7 +31,6 @@ import com.blankj.utilcode.util.NetworkUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-import com.qq.e.comm.util.StringUtil;
 import com.yueyou.adreader.service.db.DataSHP;
 
 import java.io.BufferedReader;
@@ -490,7 +489,6 @@ public class Widget {
         try {
             zipFile = new ZipFile(file);
             String commentStr = zipFile.getComment();
-            if (StringUtil.isEmpty(commentStr)) return "";
             commentStr = URLDecoder.decode(commentStr, "utf-8");
             return commentStr;
         } catch (Exception e) {

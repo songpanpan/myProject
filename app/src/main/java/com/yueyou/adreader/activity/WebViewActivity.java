@@ -15,7 +15,6 @@ import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
-import com.qq.e.comm.util.StringUtil;
 import com.yueyou.adreader.R;
 import com.yueyou.adreader.activity.base.BaseActivity;
 import com.yueyou.adreader.activity.refreshload.RefreshLoadLayout;
@@ -205,10 +204,6 @@ public class WebViewActivity extends BaseActivity implements CustomWebView.Custo
         }
         progressDlg().show("正在获取数据");
         //NullPointerException
-        if (StringUtil.isEmpty(mCustomWebView.getUrl())) {
-            finish();
-            return;
-        }
         if (mCustomWebView.getUrl().contains("YYFullScreen=1")) {
             mTopBar.setVisibility(View.GONE);
         }
@@ -242,9 +237,6 @@ public class WebViewActivity extends BaseActivity implements CustomWebView.Custo
             mTopBar.setVisibility(View.VISIBLE);
             return;
         } else {
-            if (!StringUtil.isEmpty(mCustomWebView.getUrl()) && mCustomWebView.getUrl().contains("YYFullScreen=1")) {
-                mTopBar.setVisibility(View.GONE);
-            }
         }
         mTopBar.setTitle(title);
     }
@@ -304,7 +296,7 @@ public class WebViewActivity extends BaseActivity implements CustomWebView.Custo
 
     @Override
     public void close() {
-        if ("true".equals(mIsTmpBook) && !StringUtil.isEmpty(mBookId)) {
+        if ("true".equals(mIsTmpBook)) {
             ((YueYouApplication) getApplicationContext()).getMainActivity().bookshelfFrament().deleteBook(Integer.parseInt(mBookId));
         }
     }

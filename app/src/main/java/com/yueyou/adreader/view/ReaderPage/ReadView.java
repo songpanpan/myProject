@@ -18,7 +18,6 @@ import com.yueyou.adreader.service.Action;
 import com.yueyou.adreader.service.BookMarkEngine;
 import com.yueyou.adreader.service.BookReadEngine;
 import com.yueyou.adreader.service.DownloadChapterCallBack;
-import com.yueyou.adreader.service.advertisement.adObject.AdReadPageScreen;
 import com.yueyou.adreader.service.analytics.AnalyticsEngine;
 import com.yueyou.adreader.service.db.BookFileEngine;
 import com.yueyou.adreader.service.model.BookShelfItem;
@@ -48,7 +47,6 @@ public class ReadView extends LinearLayout implements YYTextView.YYTextViewListe
     private boolean mGotoEndPage;
     private ReadViewTouchManager mReadViewTouchManager;
     private int currentPageIndex = 0;
-    private AdReadPageScreen mAdScreen;
 //    private BookCoverForReader mBookCoverForReader;
 
     int bgColor;
@@ -61,7 +59,6 @@ public class ReadView extends LinearLayout implements YYTextView.YYTextViewListe
         ReadViewEvent.setEventListener(null);
         mTimer.cancel();
         mReadViewTouchManager.release();
-        mAdScreen.release();
         super.onDetachedFromWindow();
     }
 
@@ -75,15 +72,7 @@ public class ReadView extends LinearLayout implements YYTextView.YYTextViewListe
         ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.read_view, (ViewGroup) this);
         mReadViewTouchManager = new ReadViewTouchManager(this, findViewById(R.id.bg), (SurfaceViewAnimator) findViewById(R.id.animator_page));
         this.setOnTouchListener(mReadViewTouchManager);
-        mAdScreen = new AdReadPageScreen();
-        mAdScreen.init(this, new AdReadPageScreen.AdReadPageScreenListener() {
-            @Override
-            public void adReadPageScreenHide() {
-                mYYTextView.showAd(null, false);
-                mYYTextView.refreshLineNum();
-                mYYTextView.invalidate();
-            }
-        });
+
         mYYTextView = findViewById(R.id.text);
         mYYTextView.setListener(this);
         mBookReadEngine = new BookReadEngine();
@@ -145,7 +134,6 @@ public class ReadView extends LinearLayout implements YYTextView.YYTextViewListe
 //        mBookCoverForReader = findViewById(R.id.book_cover);
 //        mBookCoverForReader.init(mBook, bgColor, textColor, barBgColor, parchment);
         // 加载插屏广告
-        mAdScreen.load(mBook.getBookId(), mBook.getChapterIndex(), mBookReadEngine.isVip());
 
         // 绘制当前页内容
         fillDataBlock(mYYTextView.getDataBlock1(), mBook.getDisplayOffset());
@@ -214,8 +202,6 @@ public class ReadView extends LinearLayout implements YYTextView.YYTextViewListe
         if (event == TEXTVIEW_EVENT.TEXTVIEW_EVENT_BOTTOM) {
             boolean hasNextBlock = mBookReadEngine.nextBlock();
             if (!hasNextBlock) {
-                if (mAdScreen.isShow())
-                    return -1;
                 return gotoNextChapter();
             } else {
                 fillDataBlock(mYYTextView.getDataBlock2(), 0);
@@ -264,7 +250,7 @@ public class ReadView extends LinearLayout implements YYTextView.YYTextViewListe
 
     @Override
     public boolean isShowText() {
-        return !mAdScreen.isShow();
+        return false;
     }
 
     public float getProgress() {
@@ -360,14 +346,12 @@ public class ReadView extends LinearLayout implements YYTextView.YYTextViewListe
 
     @Override
     public void gotoChapter(int chapterId) {
-        mAdScreen.load(mBook.getBookId(), mBook.getChapterIndex(), mBookReadEngine.isVip());
         gotoChapter(chapterId, false);
     }
 
     @Override
     public void gotoMark(int index) {
 //        hideBookCover();
-        mAdScreen.load(mBook.getBookId(), mBook.getChapterIndex(), mBookReadEngine.isVip());
         mBookReadEngine.openBook(getContext(), mBook.getBookId(), mBookMarkEngine.get(index).getChapterIndex());
         mBookReadEngine.seekAndLoad(mBookMarkEngine.get(index).getDataOffset());
         fillDataBlock(mYYTextView.getDataBlock1(), mBookMarkEngine.get(index).getDisplayOffset());
@@ -417,7 +401,6 @@ public class ReadView extends LinearLayout implements YYTextView.YYTextViewListe
             if (parchment) {
                 findViewById(R.id.skin_parchment).setVisibility(VISIBLE);
             } else findViewById(R.id.skin_parchment).setVisibility(GONE);
-            mAdScreen.setColor(adbgColor, bgColor, textColor, textColor, night, parchment);
             mReadViewTouchManager.refreshCurPageView();
             if ((bgColor & 0xffffff) < 0x800000)
                 mReadViewTouchManager.setShadowColor(Color.BLACK);
@@ -450,9 +433,6 @@ public class ReadView extends LinearLayout implements YYTextView.YYTextViewListe
 
     public void resume() {
         try {
-            mAdScreen.resume();
-            if (mBookMarkEngine == null || mAdScreen.isShow())
-                return;
             mBookMarkEngine.reload(getContext(), mBook.getBookId());
         } catch (Exception e) {
             e.printStackTrace();
@@ -460,7 +440,6 @@ public class ReadView extends LinearLayout implements YYTextView.YYTextViewListe
     }
 
     public void pause() {
-        mAdScreen.pause();
     }
 
     private boolean isLastOfChapter() {
@@ -516,12 +495,7 @@ public class ReadView extends LinearLayout implements YYTextView.YYTextViewListe
                 ((Activity) getContext()).runOnUiThread(() -> mBookReadEngine.reloadOnlyChapterContent(getContext(), mBook.getBookId(), mBook.getChapterIndex()));
             }).start();
         }
-        if (mAdScreen.isShow()) {
-            mAdScreen.hide();
-            mAdScreen.load(mBook.getBookId(), mBook.getChapterIndex(), mBookReadEngine.isVip());
-            mYYTextView.invalidate();
-            return true;
-        }
+
         if (!mYYTextView.isLastPage())
             setPage(this.currentPageIndex + 1);
         showScreenAd(false);
@@ -551,15 +525,6 @@ public class ReadView extends LinearLayout implements YYTextView.YYTextViewListe
                 Toast.makeText(getContext(), "已是第一页", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (mAdScreen.middleMode())
-            setPage(this.currentPageIndex - 1);
-        if (mAdScreen.isShow()) {
-            mAdScreen.hide();
-        } else if (showScreenAd(true)) {
-            return true;
-        }
-        if (!mAdScreen.middleMode())
-            setPage(this.currentPageIndex - 1);
         mYYTextView.prePage();
         mYYTextView.invalidate();
         Const.READ_PAGE_COUNT += 1;
@@ -569,14 +534,6 @@ public class ReadView extends LinearLayout implements YYTextView.YYTextViewListe
     private boolean showScreenAd(boolean prePage) {
         boolean lastPage = mYYTextView.isLastPage();
         boolean lastPagePre = mYYTextView.isLastPagePre();
-        if (mAdScreen.show(mBookReadEngine.isVip(), currentPageIndex, lastPage, lastPagePre, !prePage, isCover())) {
-            if (mAdScreen.middleAd() != null) {
-                mYYTextView.showAd(mAdScreen.middleAd(), !prePage);
-                if (prePage)
-                    return false;
-            }
-            return true;
-        }
         mYYTextView.showAd(null, !prePage);
         return false;
     }

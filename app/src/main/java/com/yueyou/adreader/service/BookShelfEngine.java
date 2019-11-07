@@ -7,9 +7,6 @@ import android.os.Handler;
 import com.google.gson.reflect.TypeToken;
 import com.yueyou.adreader.activity.WebViewActivity;
 import com.yueyou.adreader.activity.YueYouApplication;
-import com.yueyou.adreader.service.advertisement.adObject.AdBookCover;
-import com.yueyou.adreader.service.advertisement.service.AdEventObject;
-import com.yueyou.adreader.service.analytics.ThirdAnalytics;
 import com.yueyou.adreader.service.db.BookFileEngine;
 import com.yueyou.adreader.service.db.DBEngine;
 import com.yueyou.adreader.service.model.AdContent;
@@ -81,7 +78,6 @@ public class BookShelfEngine {
                 mBookUpdateListener.bookUpdate();
             }
         }catch (Exception e){
-            ThirdAnalytics.reportError(mContext, e);
             e.printStackTrace();
         }
     }
@@ -177,32 +173,9 @@ public class BookShelfEngine {
                 checkUpdate();
                 mHandler.sendEmptyMessageDelayed(1, 600000);
             }else if (msg.what == 2) {
-                mAdBookCover.load();
             }
         };
     };
-    private AdBookCover mAdBookCover = new AdBookCover(new AdEventObject.AdEventObjectListener() {
-        @Override
-        public void showed(AdContent adContent) {
-            BookShelfItem bookShelfItem = new BookShelfItem();
-            bookShelfItem.setBookType(11);
-            bookShelfItem.setBookId(0xefffffff);
-            bookShelfItem.setBookName(adContent.getAppKey());
-            bookShelfItem.setDataOffset(adContent.getSiteId());
-            bookShelfItem.setAuthor(adContent.getCp());
-            bookShelfItem.refreshReadTime();
-            bookShelfItem.setReadTimer(bookShelfItem.getReadTimer() + 360000);
-            Action.getInstance().downloadCover(mContext, adContent.getPlaceId(),
-                    bookShelfItem.getBookId(), false);
-            addBookAd(bookShelfItem);
-            ((YueYouApplication)mContext.getApplicationContext()).getMainActivity().bookshelfFrament().refreshView();
-        }
-
-        @Override
-        public void closed() {
-
-        }
-    });
 
     public synchronized void checkCover() {
         try {

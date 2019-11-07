@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import com.blankj.utilcode.util.DeviceUtils;
 import com.yueyou.adreader.service.HttpEngine;
 import com.yueyou.adreader.service.Url;
-import com.yueyou.adreader.service.advertisement.service.AdEngine;
 import com.yueyou.adreader.service.analytics.model.Activate;
 import com.yueyou.adreader.service.analytics.model.AddBuildinBookFinish;
 import com.yueyou.adreader.service.analytics.model.Advertisement;
@@ -129,8 +128,6 @@ public class Bi {
     }
 
     public static void advertisementLoad(Context context, int siteId, String cp, boolean result) {
-        if (!AdEngine.getInstance().enableMatNotify(siteId))
-            return;
         Advertisement advertisement = new Advertisement();
         advertisement.setSiteId(siteId);
         advertisement.setCp(cp);

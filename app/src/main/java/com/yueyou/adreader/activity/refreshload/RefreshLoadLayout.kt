@@ -58,7 +58,7 @@ class RefreshLoadLayout(context: Context, @Nullable attrs: AttributeSet?, defSty
      * Default background for the progress spinner
      */
     private var mCircleProgressColor = ResourcesCompat.getColor(resources, R.color.refresh, context.theme)
-    private var mCircleProgressBg = ResourcesCompat.getColor(resources, R.color.tt_white, context.theme)
+    private var mCircleProgressBg = ResourcesCompat.getColor(resources, R.color.white, context.theme)
     private var mMode = MODE_BOTH
     /**
      * 滑动状态

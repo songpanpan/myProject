@@ -2,11 +2,9 @@ package com.yueyou.adreader.service;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.DeviceUtils;
 import com.yueyou.adreader.activity.YueYouApplication;
-import com.yueyou.adreader.service.analytics.ThirdAnalytics;
 import com.yueyou.adreader.service.db.DataSHP;
 import com.yueyou.adreader.util.Const;
 import com.yueyou.adreader.util.DES;
@@ -100,7 +98,6 @@ public class Url {
         int wx = 0;
         if (!"girl".equals(sex))
             sex = "boy";
-        ThirdAnalytics.onEventApi(context, ThirdAnalytics.getMapUrl(url, deviceId, version, packetId, userId, sex, channelId));
         url += Utils.format("&platId=2&deviceId=%s&appId=%s&channelId=%s&appVersion=%s&time=%s&userId=%s&sex=%s&wx=%d&tmpToken=%s",
                 deviceId, packetId, channelId, version, time, userId, sex, wx, sessionToken);
         url = urlEncode(url.replace("?&", "?"));
@@ -131,7 +128,6 @@ public class Url {
         int wx = 0;
         if (!"girl".equals(sex))
             sex = "boy";
-        ThirdAnalytics.onEventApi(context, ThirdAnalytics.getMapUrl(url, deviceId, version, packetId, userId, sex, channelId));
         url += Utils.format("&platId=2&deviceId=%s&appId=%s&channelId=%s&appVersion=%s&time=%s&userId=%s&sex=%s&wx=%d&tmpToken=%s&imei=%s&androidId=%s&mac=%s&oaid=%s",
                 deviceId, packetId, channelId, version, time, userId, sex, wx, sessionToken, imei, androidId, mac, Const.OAID);
         LogUtil.e("url:" + url);

@@ -14,7 +14,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -23,17 +22,13 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.qq.e.comm.util.StringUtil;
 import com.yueyou.adreader.R;
 import com.yueyou.adreader.activity.ReadActivity;
 import com.yueyou.adreader.activity.WebViewActivity;
 import com.yueyou.adreader.service.Action;
 import com.yueyou.adreader.service.BookShelfEngine;
-import com.yueyou.adreader.service.advertisement.adObject.AdBookShelfIcon;
 import com.yueyou.adreader.service.analytics.AnalyticsEngine;
-import com.yueyou.adreader.service.analytics.ThirdAnalytics;
 import com.yueyou.adreader.service.db.BookFileEngine;
-import com.yueyou.adreader.service.db.DataSHP;
 import com.yueyou.adreader.service.model.BookInfo;
 import com.yueyou.adreader.service.model.BookShelfItem;
 import com.yueyou.adreader.util.Utils;
@@ -60,7 +55,6 @@ public class BookshelfView extends ViewPagerBase implements AdapterView.OnItemCl
     private boolean mNeedOpenBuildinBook;
     private boolean mMainPreViewFinished;
     private boolean mDefaultOpenFirstBook;
-    private AdBookShelfIcon mAdbookShelfIcon = new AdBookShelfIcon();
     public void getBuildinBook(boolean flag, String bookName, String bookId, String chapterId) {
         mBuildinBookName = bookName;
         mBuildinBookId = bookId;
@@ -92,10 +86,8 @@ public class BookshelfView extends ViewPagerBase implements AdapterView.OnItemCl
                 Looper.prepare();
                 Action.getInstance().getShelfBookPull(getContext(), getBookIds());
             } catch (Exception e) {
-                ThirdAnalytics.reportError(getContext(), "getShelfBookPull error : %s", e.getMessage());
             }
         }).start();
-        mAdbookShelfIcon.load(findViewById(R.id.ad_bottom_icon));
     }
 
     @Override
@@ -216,7 +208,6 @@ public class BookshelfView extends ViewPagerBase implements AdapterView.OnItemCl
             });
         } catch (Exception e) {
             e.printStackTrace();
-            ThirdAnalytics.reportError(getContext(), e);
         }
     }
 
@@ -295,10 +286,6 @@ public class BookshelfView extends ViewPagerBase implements AdapterView.OnItemCl
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (StringUtil.isEmpty(DataSHP.getUserId(this.getContext()))) {
-            Toast.makeText(getContext(), "登录错误，请重新登录", Toast.LENGTH_SHORT).show();
-            return;
-        }
         if (mGrideView.getHeaderViewCount() > 0)
             position -= mGrideView.getHeaderViewCount() * 3;
         if (mEditMenu.getVisibility() == View.VISIBLE) {

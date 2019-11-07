@@ -54,7 +54,6 @@
             android:background="#48D0BB"
             android:padding="10dp"
             android:text="@string/dlg_bind"
-            android:textColor="@color/tt_white"
             android:textSize="15sp" />
     </LinearLayout>
 </RelativeLayout>
