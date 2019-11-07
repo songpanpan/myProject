@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="toolBarBackground">#f8f7f5</color>
+    <color name="plugin_font_subject">#ff585858</color>
+    <color name="flip_mode_text_color">#57524f</color>
+    <color name="flip_mode_selected_text_color">#e85b62</color>
+</resources>

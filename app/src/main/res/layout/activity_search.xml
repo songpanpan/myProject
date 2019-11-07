@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fcfcfc"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:attr="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/search_bg_hei"
+        android:background="@drawable/search_bg">
+        <ImageView
+            android:id="@+id/search_back"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/search_back"/>
+        <ImageView
+            android:id="@+id/clear_edit"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/clear_search_text"/>
+        <EditText
+            android:id="@+id/search_edit"
+            android:layout_toRightOf="@id/search_back"
+            android:layout_toLeftOf="@id/clear_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxLength="11"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
+            android:hint="请输入搜索关键字"
+            style="@style/search_edit_style" />
+    </RelativeLayout>
+    <com.yueyou.adreader.activity.refreshload.RefreshLoadLayout
+        android:id="@+id/rll_sj"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:pMode="refresh">
+        <com.yueyou.adreader.view.webview.CustomWebView
+            android:id="@+id/webview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scrollbars="none" />
+    </com.yueyou.adreader.activity.refreshload.RefreshLoadLayout>
+
+</LinearLayout>

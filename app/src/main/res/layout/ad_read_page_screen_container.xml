@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_marginVertical="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="*广告展示用于购买正版书籍，感谢支持～"
+        android:textColor="#A6333333"
+        android:textSize="14sp"
+        android:visibility="gone"/>
+
+    <FrameLayout
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp">
+        <FrameLayout
+            android:layout_marginTop="31dp"
+            android:id="@+id/ad_container_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#80FFFFFF" />
+        <LinearLayout
+            android:id="@+id/vip_toast"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@drawable/vip_bg"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="21.53dp"
+                android:layout_height="21.53dp"
+                android:layout_marginLeft="17dp"
+                android:src="@drawable/vip_star" />
+
+            <TextView
+                android:layout_width="234dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:text="成为VIP会员，享受无广告畅读！"
+                android:textColor="#FF222222"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4.0"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/toast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:alpha="0.67"
+            android:text="点击/滑动可继续阅读"
+            android:textColor="#A6333333"
+            android:textSize="16sp" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/rewardVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:text="看视频免20分钟广告 >>"
+                android:textColor="#FF222200"
+                android:textSize="17sp"
+                android:paddingBottom="3dp"
+                />
+
+            <View
+                android:id="@+id/under_line"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_alignBottom="@+id/rewardVideo"
+                android:layout_alignRight="@+id/rewardVideo"
+                android:layout_alignLeft="@+id/rewardVideo"
+                android:minWidth="4dp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

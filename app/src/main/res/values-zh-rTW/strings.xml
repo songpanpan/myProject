@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">閱友免費小說</string>
+    <string name="activity_title_about">關於</string>
+    <string name="app_copyright">版本資訊：V</string>
+    <string name="app_mail">官方郵箱：714098665@qq.com</string>
+    <string name="app_qq">官方QQ群：714098665</string>
+    <string name="pull_to_refresh_pull_label">下拉重繪…</string>
+    <string name="pull_to_refresh_release_label">鬆開重繪…</string>
+    <string name="pull_to_refresh_refreshing_label">加載中…</string>
+    <string name="main_tab_label_book_store">書庫</string>
+    <string name="main_tab_label_book_select">精品</string>
+    <string name="main_tab_label_book_shelf">書架</string>
+    <string name="main_tab_label_book_persional">我的</string>
+    <string name="main_tab_title_book_store">書庫</string>
+    <string name="main_tab_title_book_select">精品</string>
+    <string name="main_tab_title_book_persional">個人中心</string>
+
+    <string name="tip_confirm_exit">確認退出</string>
+    <string name="dlg_cancel">取消</string>
+    <string name="dlg_confirm">確認</string>
+    <string name="read_menu_option_font">字體大小</string>
+    <string name="read_menu_option_line_small">行間距離</string>
+    <string name="read_menu_option_style">風格樣式</string>
+    <string name="read_menu_option_flip_type">翻頁管道</string>
+    <string name="read_menu_option_flip_nil">無</string>
+    <string name="read_menu_option_flip_overlay">覆蓋</string>
+    <string name="read_menu_chapter">目錄</string>
+    <string name="read_menu_mark">書簽</string>
+    <string name="read_menu_style_night">夜間</string>
+    <string name="read_menu_style_daytime">日間</string>
+    <string name="read_menu_next_chapter">下一章</string>
+    <string name="read_menu_pre_chapter">上一章</string>
+    <string name="read_menu_brightn">亮度</string>
+    <string name="read_menu_option">選項</string>
+    <string name="bind_dlg_title">账号安全提示</string>
+    <string name="bind_dlg_content">尊贵的用户，为了保障您的账号安全，\n请尽快账号绑定！</string>
+    <string name="common_login">登录</string>
+    <string name="dlg_bind">立即绑定</string>
+</resources>

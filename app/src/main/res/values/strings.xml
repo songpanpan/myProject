@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">阅友免费小说</string>
+    <string name="activity_title_about">关于</string>
+    <string name="app_copyright">版本信息：V</string>
+    <string name="app_mail">官方邮箱：714098665@qq.com</string>
+    <string name="app_qq">官方QQ群：714098665</string>
+    <string name="pull_to_refresh_pull_label">下拉刷新…</string>
+    <string name="pull_to_refresh_release_label">松开刷新…</string>
+    <string name="pull_to_refresh_refreshing_label">加载中…</string>
+    <string name="main_tab_label_book_store">书城</string>
+    <string name="main_tab_label_book_select">分类</string>
+    <string name="main_tab_label_book_shelf">书架</string>
+    <string name="main_tab_label_book_persional">我的</string>
+    <string name="main_tab_title_book_store">书城</string>
+    <string name="main_tab_title_book_select">分类</string>
+    <string name="main_tab_title_book_persional">个人中心</string>
+
+    <string name="tip_confirm_exit">确认退出</string>
+    <string name="dlg_cancel">取消</string>
+    <string name="dlg_confirm">确认</string>
+    <string name="read_menu_option_font">字体大小</string>
+    <string name="read_menu_option_line_small">行间距离</string>
+    <string name="read_menu_option_style">风格样式</string>
+    <string name="read_menu_option_flip_type">翻页方式</string>
+    <string name="read_menu_option_flip_nil">无</string>
+    <string name="read_menu_option_flip_overlay">覆盖</string>
+    <string name="read_menu_chapter">目录</string>
+    <string name="read_menu_mark">书签</string>
+    <string name="read_menu_style_night">夜间</string>
+    <string name="read_menu_style_daytime">日间</string>
+    <string name="read_menu_next_chapter">下一章</string>
+    <string name="read_menu_pre_chapter">上一章</string>
+    <string name="read_menu_brightn">亮度</string>
+    <string name="read_menu_option">选项</string>
+    <string name="bind_dlg_title">账号安全提示</string>
+    <string name="bind_dlg_content">尊贵的用户，为了保障您的账号安全，\n请尽快绑定账号！</string>
+    <string name="common_login">登录</string>
+    <string name="dlg_bind">立即绑定</string>
+    <item type="id" name="tag_textview_ad">
+    </item>
+</resources>

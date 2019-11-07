@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6c89bf</color>
+    <color name="colorPrimaryDark">#6c89bf</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="toolBarBackground">#f8f7f5</color>
+    <color name="plugin_font_subject">#ff585858</color>
+    <color name="flip_mode_text_color">#57524f</color>
+    <color name="flip_mode_selected_text_color">#e85b62</color>
+    <color name="refresh">#FED328</color>
+    <color name="colorText">#FF344D36</color>
+    <color name="parchmentColor">#FFE1D3C2</color>
+    <color name="black">#FF000000</color>
+</resources>

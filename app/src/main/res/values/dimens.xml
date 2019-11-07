@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="top_bar_hei">41.0dp</dimen>
+    <dimen name="tool_bar_hei">51.0dp</dimen>
+    <dimen name="search_bg_hei">36.0dp</dimen>
+    <dimen name="top_bar_title_left_margin">50.0dip</dimen>
+    <dimen name="top_bar_title_right_margin">50.0dip</dimen>
+    <dimen name="top_bar_title_size">16.0sp</dimen>
+    <dimen name="progress_dian_width">12dp</dimen>
+    <dimen name="progress_dian_margin">5dp</dimen>
+    <dimen name="padding_top">10.0dip</dimen>
+    <dimen name="padding_bottom">10.0dip</dimen>
+    <dimen name="font_size_large__">16.0dip</dimen>
+    <dimen name="bookshelf_edit_menu_font">15.sp</dimen>
+    <dimen name="bookshelf_edit_menu_space_v">7.dp</dimen>
+</resources>

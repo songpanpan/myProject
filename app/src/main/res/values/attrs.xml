@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MaskImage">
+        <!-- Identifier for the image that represents the Imageview's content. -->
+        <attr name="image" format="reference" />
+        <!-- crop Imageview's content same as mask -->
+        <attr name="mask" format="reference" />
+
+    </declare-styleable>
+    <declare-styleable name="PullToRefresh">
+        <attr name="adapterViewBackground" format="reference|color" />
+        <attr name="headerBackground" format="reference|color" />
+        <attr name="headerTextColor" format="color" />
+        <attr name="mode">
+            <flag name="pullDownFromTop" value="0x1" />
+            <flag name="pullUpFromBottom" value="0x2" />
+            <flag name="both" value="0x3" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="tool_bar">
+        <attr name="img" format="reference" />
+        <attr name="title" format="string" />
+    </declare-styleable>
+    <declare-styleable name="skin">
+        <attr name="bg" format="color" />
+        <attr name="text" format="color" />
+        <attr name="bar_bg" format="color" />
+    </declare-styleable>
+    <declare-styleable name="FoldingMenu">
+        <attr name="foldNumber" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="RefreshLoadLayout">
+        <attr name="pColor" format="color" />
+        <attr name="pBackground" format="color" />
+        <attr name="pMode">
+            <enum name="none" value="0" />
+            <enum name="refresh" value="1" />
+            <enum name="load" value="2" />
+            <enum name="both" value="3" />
+        </attr>
+    </declare-styleable>
+</resources>

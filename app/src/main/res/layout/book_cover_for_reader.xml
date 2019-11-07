@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/parchment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_circle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_big_black_rectangle" />
+
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:layout_width="124dp"
+            android:layout_height="165.33dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/welcome" />
+
+        <TextView
+            android:id="@+id/tv_bookname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="285.33dp"
+            android:text="书名书名书名"
+            android:textColor="#FF5C422D"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="317.33dp"
+            android:text="我是作者我是作者"
+            android:textColor="#FF5C422D"
+            android:textSize="13sp" />
+
+        <com.yueyou.adreader.view.RoundImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="469dp"
+            android:src="@drawable/logo_300" />
+
+        <RelativeLayout
+            android:id="@+id/rl_copyright"
+            android:layout_width="match_parent"
+            android:layout_height="52.33dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="521dp"
+            android:layout_marginRight="28dp"
+            android:background="@drawable/bg_black_rectangle">
+
+            <TextView
+                android:id="@+id/tv_copyright"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="本作品由起点中文网授权客户端电子版权与发行"
+                android:textColor="#FF5C422D"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tv_statement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="版权所有，侵权必究"
+                android:textColor="#FF5C422D"
+                android:textSize="11sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

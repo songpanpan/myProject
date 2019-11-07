@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    xmlns:attr="http://schemas.android.com/apk/res-auto">
+    <com.yueyou.adreader.view.TopBar android:id="@+id/top_bar" android:layout_width="fill_parent" android:layout_height="@dimen/top_bar_hei" />
+    <LinearLayout
+        android:id="@+id/tool_bar"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/toolBarBackground"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/tool_bar_hei"
+        android:layout_alignParentBottom="true">
+        <com.yueyou.adreader.view.ToolBar android:id="@+id/tool_bar_bookshelf" attr:img="@drawable/tool_bar_bookshelf_sel" attr:title="@string/main_tab_label_book_shelf" style="@style/style_default_tool_bar" />
+        <com.yueyou.adreader.view.ToolBar android:id="@+id/tool_bar_book_store" attr:img="@drawable/tool_bar_book_store_sel" attr:title="@string/main_tab_label_book_store" style="@style/style_default_tool_bar" />
+        <com.yueyou.adreader.view.ToolBar android:id="@+id/tool_bar_book_select" attr:img="@drawable/tool_bar_book_select_sel" attr:title="@string/main_tab_label_book_select" style="@style/style_default_tool_bar" />
+        <com.yueyou.adreader.view.ToolBar android:id="@+id/tool_bar_persional" attr:img="@drawable/tool_bar_persional_sel" attr:title="@string/main_tab_label_book_persional" style="@style/style_default_tool_bar" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/tabContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tool_bar"
+        android:layout_below="@id/top_bar">
+        <com.yueyou.adreader.view.ViewPager.ZYViewPager
+            android:id="@+id/viewpager"
+            android:background="#fcfcfc"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+    <com.yueyou.adreader.view.SexView
+        android:id="@+id/sex"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+    <com.yueyou.adreader.view.MainPreView
+        android:id="@+id/main_pre_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>

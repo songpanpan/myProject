@@ -1,0 +1,11 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    xmlns:attr="http://schemas.android.com/apk/res-auto">
+
+    <com.yueyou.adreader.view.ReSplashPreView
+        android:id="@+id/main_pre_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>
