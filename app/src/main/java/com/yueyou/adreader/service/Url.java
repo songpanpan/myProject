@@ -13,7 +13,6 @@ import com.yueyou.adreader.util.DES;
 import com.yueyou.adreader.util.LogUtil;
 import com.yueyou.adreader.util.Utils;
 import com.yueyou.adreader.util.Widget;
-import com.yueyou.adreader.wxapi.WechatApi;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -99,9 +98,6 @@ public class Url {
         String channelId = Widget.getChannelId(context);
         String sessionToken = ((YueYouApplication) context.getApplicationContext()).getSessionToken();
         int wx = 0;
-        if (WechatApi.getInstance().isInstalled()) {
-            wx = 1;
-        }
         if (!"girl".equals(sex))
             sex = "boy";
         ThirdAnalytics.onEventApi(context, ThirdAnalytics.getMapUrl(url, deviceId, version, packetId, userId, sex, channelId));
@@ -133,9 +129,6 @@ public class Url {
         String androidId = DeviceUtils.getAndroidID();
         String mac = DeviceUtils.getMacAddress();
         int wx = 0;
-        if (WechatApi.getInstance().isInstalled()) {
-            wx = 1;
-        }
         if (!"girl".equals(sex))
             sex = "boy";
         ThirdAnalytics.onEventApi(context, ThirdAnalytics.getMapUrl(url, deviceId, version, packetId, userId, sex, channelId));

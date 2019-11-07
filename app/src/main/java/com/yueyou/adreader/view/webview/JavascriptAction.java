@@ -15,10 +15,8 @@ import com.yueyou.adreader.activity.SearchActivity;
 import com.yueyou.adreader.activity.WebViewActivity;
 import com.yueyou.adreader.activity.YueYouApplication;
 import com.yueyou.adreader.service.Action;
-import com.yueyou.adreader.service.JuHePay;
 import com.yueyou.adreader.service.RechargeAndBuyListener;
 import com.yueyou.adreader.service.Url;
-import com.yueyou.adreader.service.WechatPay;
 import com.yueyou.adreader.service.advertisement.adObject.AdSignRewardVideo;
 import com.yueyou.adreader.service.analytics.ThirdAnalytics;
 import com.yueyou.adreader.service.db.DataSHP;
@@ -30,7 +28,6 @@ import com.yueyou.adreader.view.Event.BuyBookEvent;
 import com.yueyou.adreader.view.Event.CloseNewBookEvent;
 import com.yueyou.adreader.view.Event.UserEvent;
 import com.yueyou.adreader.view.dlg.MessageDlg;
-import com.yueyou.adreader.wxapi.WechatApi;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -100,15 +97,6 @@ public class JavascriptAction {
         });
     }
 
-    @JavascriptInterface
-    public void bindByWechat(String wxAppId, String wxAppKey) {
-        WechatApi.getInstance().getAuth(false);
-    }
-
-    @JavascriptInterface
-    public void loginByWechat(String wxAppId, String wxAppKey) {
-        WechatApi.getInstance().getAuth(true);
-    }
 
     @JavascriptInterface
     public void gotoSetting() {
@@ -179,21 +167,6 @@ public class JavascriptAction {
         toast(title, 2);
     }
 
-    @JavascriptInterface
-    public void adRecharge(int payType, String payData) {
-        ((Activity) mCustomWebView.getContext()).runOnUiThread(() -> {
-//            JuHePay.pay(mCustomWebView.getContext(), payData, false, false, mRechargeAndBuyListener);
-            WechatPay.pay(mCustomWebView.getContext(), payData, false, false, mRechargeAndBuyListener);
-        });
-    }
-
-    @JavascriptInterface
-    public void adRechargeAndBuy(int payType, String payData, boolean autoBuy) {
-        ((Activity) mCustomWebView.getContext()).runOnUiThread(() -> {
-//            JuHePay.pay(mCustomWebView.getContext(), payData, true, autoBuy, mRechargeAndBuyListener);
-            WechatPay.pay(mCustomWebView.getContext(), payData, true, autoBuy, mRechargeAndBuyListener);
-        });
-    }
 
     @JavascriptInterface
     public void buy(boolean autoBuy) {

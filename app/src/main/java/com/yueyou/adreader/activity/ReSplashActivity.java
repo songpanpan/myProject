@@ -26,7 +26,6 @@ import com.yueyou.adreader.view.MainPreView;
 import com.yueyou.adreader.view.ReSplashPreView;
 import com.yueyou.adreader.view.dlg.AlertWindow;
 import com.yueyou.adreader.view.dlg.MessageDlg;
-import com.yueyou.adreader.wxapi.WechatApi;
 
 public class ReSplashActivity extends BaseActivity {
     public static final String NO_FROM_INIT = "no_from_init";

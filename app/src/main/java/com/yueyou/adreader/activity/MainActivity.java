@@ -40,7 +40,6 @@ import com.yueyou.adreader.view.ToolBar;
 import com.yueyou.adreader.view.ViewPager.ZYViewPager;
 import com.yueyou.adreader.view.dlg.AlertWindow;
 import com.yueyou.adreader.view.dlg.MessageDlg;
-import com.yueyou.adreader.wxapi.WechatApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +86,6 @@ public class MainActivity extends BaseActivity {
         mTopBar.findViewById(R.id.iv_red_dot).setVisibility(View.VISIBLE);
 
         DBEngine.getInstens(this);
-        WechatApi.getInstance().registerApp(this);
         findViewById(R.id.tool_bar_book_select).setOnClickListener(mOnClickListener);
         findViewById(R.id.tool_bar_book_store).setOnClickListener(mOnClickListener);
         findViewById(R.id.tool_bar_bookshelf).setOnClickListener(mOnClickListener);
